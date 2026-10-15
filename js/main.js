@@ -55,6 +55,11 @@ function initNavbar() {
     mobileMenuBtn.addEventListener('click', toggleMobileMenu);
   }
 
+  const mobileDrawerCloseBtn = document.getElementById('mobileDrawerCloseBtn');
+  if (mobileDrawerCloseBtn) {
+    mobileDrawerCloseBtn.addEventListener('click', closeMobileMenu);
+  }
+
   if (mobileDrawerWrap) {
     mobileDrawerWrap.addEventListener('click', (e) => {
       if (e.target === mobileDrawerWrap) {

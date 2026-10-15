@@ -133,7 +133,7 @@
       </nav>
 
       <!-- Right Enrol CTA Button -->
-      <div style="display: flex; align-items: center; gap: 10px;">
+      <div class="nav-actions-group">
         <a href="#pricing" class="btn-nav-join" data-enrol-trigger data-course="Live Masterclass (₹99)"
           data-tier="Live Masterclass — ₹99">
           <span>Enroll Now</span>
@@ -155,33 +155,26 @@
 
   <!-- Mobile Drawer Overlay -->
   <div class="modal-screen-overlay" id="mobileDrawerWrap" style="z-index: 1050; padding: 0;">
-    <div
-      style="background: #0B0B0B; width: 100%; max-width: 340px; height: 100vh; position: absolute; right: 0; padding: 70px 24px 30px; display: flex; flex-direction: column; justify-content: space-between; border-left: 1px solid var(--border-subtle);">
+    <div class="mobile-drawer-box">
       <div>
-        <div style="margin-bottom: 26px;">
+        <div class="mobile-drawer-header">
           <a href="#hero" class="nav-brand-link" style="text-decoration: none;">
             <img src="assets/logo-peakoo-white.webp" alt="Peakoo" class="nav-brand-logo-img" width="108" height="27">
             <span class="nav-brand-tag">ACADEMY</span>
           </a>
+          <button class="mobile-drawer-close-btn" id="mobileDrawerCloseBtn" aria-label="Close menu">&times;</button>
         </div>
-        <ul style="list-style: none; display: flex; flex-direction: column; gap: 16px;">
-          <li><a href="courses.html" class="mobile-menu-link"
-              style="font-family: var(--font-display); font-size: 20px; font-weight: 800; display: block;">Courses</a>
-          </li>
-          <li><a href="#curriculum" class="mobile-menu-link"
-              style="font-family: var(--font-display); font-size: 20px; font-weight: 800; display: block;">Curriculum</a>
-          </li>
-          <li><a href="pricing.html" class="mobile-menu-link"
-              style="font-family: var(--font-display); font-size: 20px; font-weight: 800; display: block;">Pricing</a>
-          </li>
-          <li><a href="#community" class="mobile-menu-link"
-              style="font-family: var(--font-display); font-size: 20px; font-weight: 800; display: block;">Community</a>
-          </li>
-
+        <ul class="mobile-drawer-nav-list">
+          <li><a href="courses.html" class="mobile-menu-link">Courses</a></li>
+          <li><a href="#curriculum" class="mobile-menu-link">Curriculum</a></li>
+          <li><a href="pricing.html" class="mobile-menu-link">Pricing</a></li>
+          <li><a href="#community" class="mobile-menu-link">Community</a></li>
+          <li><a href="#mentors" class="mobile-menu-link">Mentors</a></li>
+          <li><a href="#faq" class="mobile-menu-link">FAQ</a></li>
         </ul>
       </div>
-      <div>
-        <a href="#pricing" class="btn-hero-primary" style="width: 100%; justify-content: center; margin-bottom: 10px;"
+      <div class="mobile-drawer-footer">
+        <a href="#pricing" class="btn-hero-primary" style="width: 100%; justify-content: center;"
           data-enrol-trigger data-course="Live Masterclass (₹99)" data-tier="Live Masterclass — ₹99">Enrol Now</a>
         <a href="https://wa.me/919999999999?text=Hi%20Peakoo%20Academy%2C%20I%20want%20to%20enquire%20about%20the%20upcoming%20cohort"
           target="_blank" rel="noopener" class="btn-hero-secondary"
@@ -246,7 +239,6 @@
           <div class="stat-card-label">Seats Per Cohort</div>
         </div>
       </div>
-      <br><br><br>
 
       <!-- HERO VIDEO SHOWCASE PLAYER (Tharun Speaks Style Video Teaser) -->
       <div class="hero-video-showcase" id="openVideoTourBtn" title="Click to watch 2-min cohort walkthrough">
@@ -329,6 +321,7 @@
           <text x="865" y="206" text-anchor="start" class="cohort-svg-node-serif yellow-accent">Money</text>
         </svg>
       </div>
+      <div class="pathway-scroll-cue"><span>Swipe to view full pathway &rarr;</span></div>
     </div>
   </section>
 
