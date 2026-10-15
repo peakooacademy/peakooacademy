@@ -50,7 +50,9 @@
 }
 
 /* Base Reset */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -73,7 +75,7 @@ body {
   overflow-x: hidden;
   position: relative;
   /* Ambient Animated Radial Backdrop */
-  background-image: 
+  background-image:
     radial-gradient(circle at 50% 0%, rgba(255, 106, 0, 0.16) 0%, rgba(0, 0, 0, 0.95) 45%),
     radial-gradient(circle at 80% 30%, rgba(255, 200, 61, 0.05) 0%, transparent 40%),
     radial-gradient(circle at 20% 70%, rgba(255, 106, 0, 0.08) 0%, transparent 45%);
@@ -89,25 +91,56 @@ body {
    GLOBAL ANIMATIONS & KEYFRAMES
    ========================================================================== */
 @keyframes ambientGlowPulse {
-  0% { transform: translateX(-50%) scale(1); opacity: 0.8; }
-  50% { transform: translateX(-50%) scale(1.1); opacity: 1; filter: blur(90px); }
-  100% { transform: translateX(-50%) scale(1); opacity: 0.8; }
+  0% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: translateX(-50%) scale(1.1);
+    opacity: 1;
+    filter: blur(90px);
+  }
+
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.8;
+  }
 }
 
 @keyframes textGlowPulse {
-  0% { text-shadow: 0 0 15px rgba(255, 106, 0, 0.3); }
-  100% { text-shadow: 0 0 32px rgba(255, 106, 0, 0.65), 0 0 50px rgba(255, 106, 0, 0.25); }
+  0% {
+    text-shadow: 0 0 15px rgba(255, 106, 0, 0.3);
+  }
+
+  100% {
+    text-shadow: 0 0 32px rgba(255, 106, 0, 0.65), 0 0 50px rgba(255, 106, 0, 0.25);
+  }
 }
 
 @keyframes buttonGleam {
-  0% { transform: translateX(-160%) rotate(25deg); }
-  35%, 100% { transform: translateX(250%) rotate(25deg); }
+  0% {
+    transform: translateX(-160%) rotate(25deg);
+  }
+
+  35%,
+  100% {
+    transform: translateX(250%) rotate(25deg);
+  }
 }
 
 @keyframes floatSubtle {
-  0% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-7px) rotate(-0.5deg); }
-  100% { transform: translateY(0px) rotate(0deg); }
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(-0.5deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
 }
 
 @keyframes neonBreathe {
@@ -115,10 +148,12 @@ body {
     box-shadow: 0 0 25px rgba(255, 106, 0, 0.25), inset 0 0 10px rgba(255, 106, 0, 0.08);
     border-color: rgba(255, 106, 0, 0.6);
   }
+
   50% {
     box-shadow: 0 0 55px rgba(255, 106, 0, 0.5), inset 0 0 20px rgba(255, 106, 0, 0.2);
     border-color: rgba(255, 106, 0, 0.95);
   }
+
   100% {
     box-shadow: 0 0 25px rgba(255, 106, 0, 0.25), inset 0 0 10px rgba(255, 106, 0, 0.08);
     border-color: rgba(255, 106, 0, 0.6);
@@ -130,6 +165,7 @@ body {
     opacity: 0;
     transform: translateY(18px) scale(0.97);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -137,13 +173,25 @@ body {
 }
 
 @keyframes marqueeScroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes pulsePlayRipple {
-  0% { transform: scale(1); opacity: 0.8; }
-  100% { transform: scale(1.6); opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
 }
 
 /* Scroll-Driven Reveal System */
@@ -160,7 +208,12 @@ body {
 }
 
 /* Typography Helpers - peakoo.agency Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-display);
   font-weight: 900;
   text-transform: uppercase;
@@ -456,9 +509,11 @@ a {
 .mobile-hamburger.active span:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
+
 .mobile-hamburger.active span:nth-child(2) {
   opacity: 0;
 }
+
 .mobile-hamburger.active span:nth-child(3) {
   transform: translateY(-7px) rotate(-45deg);
 }
@@ -745,7 +800,7 @@ a {
 .video-thumb-gradient {
   position: absolute;
   inset: 0;
-  background: 
+  background:
     radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.35) 0%, rgba(10, 10, 10, 0.88) 80%),
     linear-gradient(180deg, rgba(10, 10, 10, 0.25) 0%, rgba(10, 10, 10, 0.96) 100%);
   z-index: 1;
@@ -1122,12 +1177,29 @@ a {
   animation: moduleCardPop 0.45s var(--ease-spring) backwards;
 }
 
-.track-module-panel.active .module-box-card:nth-child(1) { animation-delay: 0.04s; }
-.track-module-panel.active .module-box-card:nth-child(2) { animation-delay: 0.08s; }
-.track-module-panel.active .module-box-card:nth-child(3) { animation-delay: 0.12s; }
-.track-module-panel.active .module-box-card:nth-child(4) { animation-delay: 0.16s; }
-.track-module-panel.active .module-box-card:nth-child(5) { animation-delay: 0.20s; }
-.track-module-panel.active .module-box-card:nth-child(6) { animation-delay: 0.24s; }
+.track-module-panel.active .module-box-card:nth-child(1) {
+  animation-delay: 0.04s;
+}
+
+.track-module-panel.active .module-box-card:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.track-module-panel.active .module-box-card:nth-child(3) {
+  animation-delay: 0.12s;
+}
+
+.track-module-panel.active .module-box-card:nth-child(4) {
+  animation-delay: 0.16s;
+}
+
+.track-module-panel.active .module-box-card:nth-child(5) {
+  animation-delay: 0.20s;
+}
+
+.track-module-panel.active .module-box-card:nth-child(6) {
+  animation-delay: 0.24s;
+}
 
 .curriculum-banner-card {
   background: linear-gradient(135deg, rgba(255, 106, 0, 0.12) 0%, #121212 100%);
@@ -1745,6 +1817,7 @@ a {
     grid-template-columns: 1fr;
     gap: 20px;
   }
+
   .bundle-combo-banner {
     flex-direction: column;
     align-items: stretch;
@@ -1752,11 +1825,13 @@ a {
     text-align: center;
     gap: 20px;
   }
+
   .bundle-combo-right {
     flex-direction: column;
     gap: 16px;
     width: 100%;
   }
+
   .btn-bundle-combo {
     width: 100%;
   }
@@ -2011,6 +2086,7 @@ a {
     gap: 36px;
     text-align: center;
   }
+
   .hero-masterclass-split .hero-agency-tagline,
   .hero-masterclass-split .hero-main-title,
   .hero-masterclass-split .hero-sub-text {
@@ -2018,9 +2094,11 @@ a {
     margin-left: auto;
     margin-right: auto;
   }
+
   .hero-masterclass-split .hero-btn-row {
     justify-content: center;
   }
+
   .how-it-works-grid {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -2637,6 +2715,7 @@ a {
   margin-bottom: 12px;
   scrollbar-width: none;
 }
+
 .video-chapters-row::-webkit-scrollbar {
   display: none;
 }
@@ -2778,6 +2857,7 @@ a {
    RESPONSIVE BREAKPOINTS
    ========================================================================== */
 @media (max-width: 1100px) {
+
   .courses-showcase-grid,
   .hero-stat-cards,
   .curriculum-pillars-bar {
@@ -2838,6 +2918,7 @@ a {
     padding: 12px;
     border-radius: 50%;
   }
+
   .floating-whatsapp-pill span {
     display: none;
   }
@@ -3222,9 +3303,11 @@ a {
   .course-meta-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .course-modules-summary-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .pricing-bundle-grid {
     grid-template-columns: 1fr;
   }
@@ -3234,23 +3317,29 @@ a {
   .course-meta-grid {
     grid-template-columns: 1fr;
   }
+
   .course-deliverables-grid {
     grid-template-columns: 1fr;
   }
+
   .course-modules-summary-grid {
     grid-template-columns: 1fr;
   }
+
   .course-detail-card {
     padding: 26px 18px;
   }
+
   .course-card-actions {
     flex-direction: column;
     align-items: stretch;
   }
+
   .course-actions-left {
     flex-direction: column;
     align-items: stretch;
   }
+
   .course-actions-left .btn-hero-primary,
   .course-actions-left .btn-hero-secondary {
     width: 100%;
@@ -3343,6 +3432,7 @@ a {
     filter: drop-shadow(0 0 3px rgba(255, 85, 0, 0.6));
     opacity: 0.8;
   }
+
   100% {
     filter: drop-shadow(0 0 10px rgba(255, 85, 0, 1));
     opacity: 1;
@@ -3371,6 +3461,7 @@ a {
   0% {
     stroke-dashoffset: 70;
   }
+
   100% {
     stroke-dashoffset: -1000;
   }
@@ -3412,18 +3503,18 @@ a {
   .why-cohort-section {
     padding: 60px 16px 70px;
   }
+
   .why-cohort-watermark {
     font-size: clamp(1.8rem, 7vw, 3rem);
   }
+
   .why-cohort-diagram-stage {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 10px;
   }
+
   .why-cohort-svg {
     min-width: 600px;
   }
 }
-
-
-
