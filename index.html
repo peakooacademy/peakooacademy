@@ -128,14 +128,15 @@
           <li><a href="#curriculum" class="nav-menu-link">Curriculum</a></li>
           <li><a href="pricing.html" class="nav-menu-link">Pricing</a></li>
           <li><a href="#community" class="nav-menu-link">Community</a></li>
-          <li><a href="#faq" class="nav-menu-link">FAQ</a></li>
+
         </ul>
       </nav>
 
       <!-- Right Enrol CTA Button -->
       <div style="display: flex; align-items: center; gap: 10px;">
-        <a href="#pricing" class="btn-nav-join" data-enrol-trigger data-tier="Elite">
-          <span>Enrol Now</span>
+        <a href="#pricing" class="btn-nav-join" data-enrol-trigger data-course="Live Masterclass (₹99)"
+          data-tier="Live Masterclass — ₹99">
+          <span>Enroll Now</span>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
@@ -176,13 +177,12 @@
           <li><a href="#community" class="mobile-menu-link"
               style="font-family: var(--font-display); font-size: 20px; font-weight: 800; display: block;">Community</a>
           </li>
-          <li><a href="#faq" class="mobile-menu-link"
-              style="font-family: var(--font-display); font-size: 20px; font-weight: 800; display: block;">FAQ</a></li>
+
         </ul>
       </div>
       <div>
         <a href="#pricing" class="btn-hero-primary" style="width: 100%; justify-content: center; margin-bottom: 10px;"
-          data-enrol-trigger data-tier="Elite">Enrol Now</a>
+          data-enrol-trigger data-course="Live Masterclass (₹99)" data-tier="Live Masterclass — ₹99">Enrol Now</a>
         <a href="https://wa.me/919999999999?text=Hi%20Peakoo%20Academy%2C%20I%20want%20to%20enquire%20about%20the%20upcoming%20cohort"
           target="_blank" rel="noopener" class="btn-hero-secondary"
           style="width: 100%; justify-content: center; background:#25D366; border-color:#25D366;">WhatsApp Us</a>
@@ -303,10 +303,10 @@
           <path class="cyan-entrance-bracket" d="M 171 134 A 350 135 0 0 0 171 226" />
           <path class="cyan-entrance-bracket" d="M 150 180 L 195 180" />
 
-          <!-- Traveling Light Pulses along the orbits -->
-          <path class="traveler-trail traveler-top" d="M 150 180 A 350 135 0 0 1 850 180" />
-          <path class="traveler-trail traveler-mid" d="M 150 180 L 850 180" />
-          <path class="traveler-trail traveler-bot" d="M 150 180 A 350 135 0 0 0 850 180" />
+          <!-- Traveling Light Pulses along the orbits (All 3 paths synchronized equally) -->
+          <path class="traveler-trail traveler-top" pathLength="1000" d="M 150 180 A 350 135 0 0 1 850 180" />
+          <path class="traveler-trail traveler-mid" pathLength="1000" d="M 150 180 L 850 180" />
+          <path class="traveler-trail traveler-bot" pathLength="1000" d="M 150 180 A 350 135 0 0 0 850 180" />
 
           <!-- Left Node: Learn the Skill -->
           <text x="135" y="168" text-anchor="end" class="cohort-svg-node-prefix">Learn the</text>
@@ -346,19 +346,19 @@
       <div class="how-it-works-grid">
         <div class="how-it-works-step">
           <span class="how-step-num">01</span>
-          <div class="how-step-title">Join the masterclass</div>
+          <div class="how-step-title">Join the Live Masterclass</div>
           <p class="how-step-desc">Spend ₹99 and see all four skills in one live session.</p>
         </div>
 
         <div class="how-it-works-step">
           <span class="how-step-num">02</span>
-          <div class="how-step-title">Pick your course</div>
+          <div class="how-step-title">Pick Your Course</div>
           <p class="how-step-desc">Choose the one that suits you. Your ₹99 is credited if you enrol within 48 hours.</p>
         </div>
 
         <div class="how-it-works-step">
           <span class="how-step-num">03</span>
-          <div class="how-step-title">Build real projects</div>
+          <div class="how-step-title">Build Your Career</div>
           <p class="how-step-desc">Finish with work you can show: a live website, a campaign, a design portfolio or a
             profile audit.</p>
         </div>
@@ -1140,77 +1140,146 @@
       </div>
 
       <div class="testimonials-row-grid">
+        <!-- Review 1: Aditya Sai (Web Development) -->
         <div class="student-story-box">
           <div>
-            <div class="story-quote-symbol">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-              </svg>
+            <div class="story-rating-row">
+              <div class="story-stars-wrap" aria-label="5 out of 5 stars">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+              </div>
+              <span class="verified-member-pill">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                Verified Student
+              </span>
             </div>
             <p class="story-quote-body">
-              "The Web Development track gave me exact agency templates. Within 3 weeks of finishing, I closed a local
-              healthcare clinic website for ₹28,000! Having mentor review before delivering made all the difference."
+              "I was stuck in tutorial hell on YouTube for 6 months without knowing how to get real clients. The Peakoo
+              cohort changed everything. The mentors reviewed my portfolio on live Zoom calls, fixed my layout
+              structure, and gave us the exact client pitch deck they use at the agency. In my 3rd week, I pitched a
+              healthcare clinic in Vijayawada and signed a ₹35,000 website deal!"
             </p>
           </div>
           <div class="story-student-profile">
             <div class="student-avatar-badge">
-              <img src="assets/student_karthik.jpg" alt="Karthik Varma" class="student-avatar-img" loading="lazy">
+              <img src="assets/member_aditya.jpg" alt="Aditya Sai" class="student-avatar-img" loading="lazy">
             </div>
             <div class="student-meta-details">
-              <h4>Karthik Varma</h4>
-              <div class="student-meta-role">Web Developer</div>
-              <span class="student-metric-tag">Closed ₹28K Project</span>
+              <h4>Aditya Sai</h4>
+              <div class="student-meta-role">Web Developer • Vijayawada</div>
+
             </div>
           </div>
         </div>
 
+        <!-- Review 2: Ananya Reddy (Meta Ads) -->
         <div class="student-story-box">
           <div>
-            <div class="story-quote-symbol">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-              </svg>
+            <div class="story-rating-row">
+              <div class="story-stars-wrap" aria-label="5 out of 5 stars">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+              </div>
+              <span class="verified-member-pill">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                Verified Student
+              </span>
             </div>
             <p class="story-quote-body">
-              "The Meta Ads track taught me how to write high-converting copy and set up Click-to-WhatsApp funnels. Now
-              running ads for 2 retail clients on a monthly ₹45,000 retainer!"
+              "Before this, I thought running Meta ads just meant boosting posts on Instagram. Here, they taught us how
+              agency pros build Click-to-WhatsApp funnels, test creative hooks, and structure high-converting CBO
+              campaigns. Within 30 days of graduating, I closed two monthly retainers—one fashion boutique and one
+              skincare brand—earning ₹65K recurring every month!"
             </p>
           </div>
           <div class="story-student-profile">
             <div class="student-avatar-badge">
-              <img src="assets/student_pooja.jpg" alt="Pooja S." class="student-avatar-img" loading="lazy">
+              <img src="assets/member_ananya.jpg" alt="Ananya Reddy" class="student-avatar-img" loading="lazy">
             </div>
             <div class="student-meta-details">
-              <h4>Pooja S.</h4>
-              <div class="student-meta-role">Performance Marketer</div>
-              <span class="student-metric-tag">₹45K/mo Retainer</span>
+              <h4>Ananya Reddy</h4>
+              <div class="student-meta-role">Performance Marketer • Hyderabad</div>
+
             </div>
           </div>
         </div>
 
+        <!-- Review 3: Rahul Verma (Design & Local SEO) -->
         <div class="student-story-box">
           <div>
-            <div class="story-quote-symbol">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-              </svg>
+            <div class="story-rating-row">
+              <div class="story-stars-wrap" aria-label="5 out of 5 stars">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                </svg>
+              </div>
+              <span class="verified-member-pill">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                Verified Student
+              </span>
             </div>
             <p class="story-quote-body">
-              "The Google Business Profile audit strategy is insane. Walked into three local stores in my area with a
-              1-page map audit and signed up two of them for monthly profile SEO within 14 days."
+              "The Google Business Profile audit strategy is an absolute superpower. I downloaded the 1-page map audit
+              sheet we built in class, walked into 4 local diagnostic centers and restaurants, and signed 3 of them on
+              monthly GBP ranking retainers. I then upsold logo & social media design to two of them. Recovered 10x the
+              course investment in 20 days!"
             </p>
           </div>
           <div class="story-student-profile">
             <div class="student-avatar-badge">
-              <img src="assets/student_nikhil.jpg" alt="Sai Nikhil" class="student-avatar-img" loading="lazy">
+              <img src="assets/member_rahul.jpg" alt="Rahul Verma" class="student-avatar-img" loading="lazy">
             </div>
             <div class="student-meta-details">
-              <h4>Sai Nikhil</h4>
-              <div class="student-meta-role">Local SEO Specialist</div>
-              <span class="student-metric-tag">Client in 14 Days</span>
+              <h4>Rahul </h4>
+              <div class="student-meta-role">Brand Designer &amp; Local SEO • Vizag</div>
+
             </div>
           </div>
         </div>
@@ -1339,7 +1408,8 @@
           that create lasting income.
         </p>
         <div class="final-cta-actions">
-          <a href="#pricing" class="btn-hero-primary" data-enrol-trigger data-tier="Elite">
+          <a href="#pricing" class="btn-hero-primary" data-enrol-trigger data-course="Live Masterclass (₹99)"
+            data-tier="Live Masterclass — ₹99">
             <span>Enrol Now</span>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M5 12h14M12 5l7 7-7 7" />
@@ -1460,51 +1530,7 @@
         </video>
       </div>
 
-      <div class="video-modal-footer-info">
-        <div class="video-chapters-row">
-          <button type="button" class="video-chapter-pill active" data-time="0">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <polygon points="6 3 20 12 6 21 6 3" />
-            </svg>
-            <span>01. Agency Mindset</span>
-          </button>
-          <button type="button" class="video-chapter-pill" data-time="1">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <polygon points="6 3 20 12 6 21 6 3" />
-            </svg>
-            <span>02. Live Client Battles</span>
-          </button>
-          <button type="button" class="video-chapter-pill" data-time="2">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <polygon points="6 3 20 12 6 21 6 3" />
-            </svg>
-            <span>03. Portfolio &amp; Reviews</span>
-          </button>
-          <button type="button" class="video-chapter-pill" data-time="3">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <polygon points="6 3 20 12 6 21 6 3" />
-            </svg>
-            <span>04. Retainer Closing</span>
-          </button>
-        </div>
-        <div class="video-bottom-action-bar">
-          <div>
-            <h4 style="font-size: 15px; margin-bottom: 2px; color: #FFFFFF;">Peakoo Agency Cohort Walkthrough</h4>
-            <p style="font-size: 12.5px; color: var(--text-muted); margin: 0;">Interactive 6-week curriculum walkthrough
-              &amp; client sprint preview</p>
-          </div>
-          <div style="display: flex; gap: 10px; align-items: center;">
-            <a href="#pricing" class="btn-hero-primary" data-enrol-trigger data-tier="Elite"
-              style="padding: 9px 20px; font-size: 13px;">
-              <span>Enrol Now</span>
-            </a>
-            <button type="button" class="btn-hero-secondary" id="closeVideoTourSecondaryBtn"
-              style="padding: 9px 18px; font-size: 13px;">
-              <span>Close</span>
-            </button>
-          </div>
-        </div>
-      </div>
+
     </div>
   </div>
 
@@ -1541,22 +1567,18 @@
           <label class="input-label-text" for="courseSelection">Course / Offer Selection</label>
           <select id="courseSelection" class="select-input-control" required>
             <option value="Live Masterclass (₹99)" selected>Live Masterclass (₹99)</option>
-            <option value="All 4 Courses Bundle">All 4 Courses Bundle (₹4,499)</option>
-            <option value="Website Development &amp; Deployment">Website Development &amp; Deployment (₹2,499)</option>
-            <option value="Meta Ads">Meta Ads (₹1,499)</option>
-            <option value="Graphic Designing">Graphic Designing (₹999)</option>
-            <option value="Google Business Profile Setup with AI">Google Business Profile Setup with AI (₹999)</option>
           </select>
         </div>
 
         <div class="input-field-group">
-          <label class="input-label-text" for="tierSelection">Delivery Type &amp; Price</label>
-          <select id="tierSelection" class="select-input-control" required>
-            <option value="Masterclass" selected>Live Masterclass — ₹99</option>
-            <option value="₹4,499">All Four Courses Bundle — ₹4,499</option>
-            <option value="₹2,499">Live Classes (Web Dev) — ₹2,499</option>
-            <option value="₹1,499">Live Classes (Meta Ads) — ₹1,499</option>
-            <option value="₹999">Recorded (Graphic Design / Google Profile) — ₹999</option>
+          <label class="input-label-text" for="slotSelection">Select Masterclass Slot</label>
+          <select id="slotSelection" class="select-input-control" required>
+            <option value="Sunday, 18 Oct 2026 • 7:00 PM IST" selected>Sunday, 18 Oct 2026 • 7:00 PM - 9:00 PM IST (Fast
+              Filling - 4 Seats Left)</option>
+            <option value="Sunday, 01 Nov 2026 • 7:00 PM IST">Sunday, 01 Nov 2026 • 7:00 PM - 9:00 PM IST</option>
+            <option value="Sunday, 15 Nov 2026 • 7:00 PM IST">Sunday, 15 Nov 2026 • 7:00 PM - 9:00 PM IST</option>
+            <option value="Saturday, 05 Dec 2026 • 7:00 PM IST">Saturday, 05 Dec 2026 • 7:00 PM - 9:00 PM IST</option>
+            <option value="Saturday, 19 Dec 2026 • 7:00 PM IST">Saturday, 19 Dec 2026 • 7:00 PM - 9:00 PM IST</option>
           </select>
         </div>
 

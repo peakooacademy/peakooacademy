@@ -251,25 +251,26 @@ function initModal() {
   const enrolForm = document.getElementById('academyEnrolForm');
   const successBox = document.getElementById('formSuccessMessage');
   const courseSelect = document.getElementById('courseSelection');
-  const tierSelect = document.getElementById('tierSelection');
+  const slotSelect = document.getElementById('slotSelection');
 
-  function openModal(course = '', tier = '') {
+  // Populate dynamic twice-a-month slots on load
+  populateMasterclassSlots();
+
+  function openModal(course = '') {
     if (modalWrap) {
-      if (course && courseSelect) {
-        const cleanCourse = course.replace(/&amp;/g, '&');
-        const match = Array.from(courseSelect.options).find(opt => 
-          opt.value === cleanCourse || opt.value.toLowerCase().includes(cleanCourse.toLowerCase()) || cleanCourse.toLowerCase().includes(opt.value.toLowerCase())
-        );
-        if (match) courseSelect.value = match.value;
-      }
-      if (tier && tierSelect) {
-        const matchTier = Array.from(tierSelect.options).find(opt => 
-          opt.value === tier || opt.value.toLowerCase() === tier.toLowerCase()
-        );
-        if (matchTier) {
-          tierSelect.value = matchTier.value;
-        } else if (tier.toLowerCase().includes('elite') || tier.toLowerCase().includes('bundle')) {
-          tierSelect.value = '₹4,499';
+      if (courseSelect) {
+        if (course) {
+          const cleanCourse = course.replace(/&amp;/g, '&');
+          const match = Array.from(courseSelect.options).find(opt => 
+            opt.value === cleanCourse || opt.value.toLowerCase().includes(cleanCourse.toLowerCase()) || cleanCourse.toLowerCase().includes(opt.value.toLowerCase())
+          );
+          if (match) {
+            courseSelect.value = match.value;
+          } else {
+            courseSelect.selectedIndex = 0;
+          }
+        } else {
+          courseSelect.selectedIndex = 0;
         }
       }
       modalWrap.classList.add('open');
@@ -343,15 +344,15 @@ function initModal() {
       const name = document.getElementById('studentName').value.trim();
       const phone = document.getElementById('studentPhone').value.trim();
       const email = document.getElementById('studentEmail').value.trim();
-      const course = courseSelect ? courseSelect.value : '';
-      const tier = tierSelect ? tierSelect.value : '';
+      const course = courseSelect ? courseSelect.value : 'Live Masterclass (₹99)';
+      const slot = slotSelect ? slotSelect.value : '';
 
       const leadData = {
         name,
         phone,
         email,
         course,
-        tier,
+        slot,
         timestamp: new Date().toISOString()
       };
 
@@ -370,14 +371,90 @@ function initModal() {
         successBox.style.display = 'block';
         const whatsAppBtn = document.getElementById('whatsAppHandoffBtn');
         if (whatsAppBtn) {
+          const slotText = slot ? ` for the slot on ${slot}` : '';
           const prefilled = encodeURIComponent(
-            `Hi Peakoo Academy! My name is ${name}. I want to confirm my seat for the ${tier || 'Elite'} tier (${course || 'Website Development'}). My email is ${email}.`
+            `Hi Peakoo Academy! My name is ${name}. I want to confirm my seat for the ${course || 'Live Masterclass (₹99)'}${slotText}. My email is ${email}.`
           );
           whatsAppBtn.href = `https://wa.me/919999999999?text=${prefilled}`;
         }
       }
     });
   }
+}
+
+/**
+ * Generates slots available twice a month (spaced ~14-15 days apart on weekends)
+ * Displays clean slot dates for users to pick.
+ */
+function populateMasterclassSlots() {
+  const slotSelects = document.querySelectorAll('#slotSelection');
+  if (!slotSelects.length) return;
+
+  const slots = [];
+  const now = new Date();
+  const currYear = now.getFullYear();
+  const currMonth = now.getMonth();
+
+  for (let m = 0; m < 4; m++) {
+    const targetMonth = (currMonth + m) % 12;
+    const targetYear = currYear + Math.floor((currMonth + m) / 12);
+    
+    const midDate = new Date(targetYear, targetMonth, 15, 19, 0, 0);
+    const lastDay = new Date(targetYear, targetMonth + 1, 0).getDate();
+    const endDate = new Date(targetYear, targetMonth, Math.min(30, lastDay), 19, 0, 0);
+
+    [midDate, endDate].forEach(d => {
+      const day = d.getDay();
+      if (day !== 0 && day !== 6) {
+        if (day <= 3) {
+          d.setDate(d.getDate() + (6 - day)); // Saturday
+        } else {
+          d.setDate(d.getDate() + (7 - day)); // Sunday
+        }
+      }
+      if (d.getTime() > now.getTime() + 12 * 3600 * 1000) {
+        slots.push(new Date(d));
+      }
+    });
+  }
+
+  slots.sort((a, b) => a.getTime() - b.getTime());
+
+  const uniqueSlots = [];
+  const seenDates = new Set();
+  for (const d of slots) {
+    const key = d.toDateString();
+    if (!seenDates.has(key)) {
+      seenDates.add(key);
+      uniqueSlots.push(d);
+    }
+  }
+
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+  const slotOptions = uniqueSlots.slice(0, 5).map((d, index) => {
+    const dayName = dayNames[d.getDay()];
+    const dateNum = String(d.getDate()).padStart(2, '0');
+    const month = monthNames[d.getMonth()];
+    const year = d.getFullYear();
+    const urgency = index === 0 ? ' (Fast Filling - 4 Seats Left)' : '';
+    return {
+      value: `${dayName}, ${dateNum} ${month} ${year} • 7:00 PM IST`,
+      label: `${dayName}, ${dateNum} ${month} ${year} • 7:00 PM - 9:00 PM IST${urgency}`
+    };
+  });
+
+  slotSelects.forEach(select => {
+    select.innerHTML = '';
+    slotOptions.forEach((opt, idx) => {
+      const optionEl = document.createElement('option');
+      optionEl.value = opt.value;
+      optionEl.textContent = opt.label;
+      if (idx === 0) optionEl.selected = true;
+      select.appendChild(optionEl);
+    });
+  });
 }
 
 /**
