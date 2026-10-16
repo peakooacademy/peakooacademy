@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveals();
   initCountdownTimer();
   initVideoModal();
+  initPathwayCue();
 });
 
 /**
@@ -261,21 +262,22 @@ function initModal() {
   // Populate dynamic twice-a-month slots on load
   populateMasterclassSlots();
 
-  function openModal(course = '') {
+  function openModal(course = '', tier = '') {
     if (modalWrap) {
       if (courseSelect) {
-        if (course) {
-          const cleanCourse = course.replace(/&amp;/g, '&');
+        let displayCourse = course || 'All 4 Courses Bundle';
+        displayCourse = displayCourse.replace(/&amp;/g, '&');
+        if (courseSelect.tagName === 'INPUT') {
+          courseSelect.value = displayCourse;
+        } else if (courseSelect.tagName === 'SELECT') {
           const match = Array.from(courseSelect.options).find(opt => 
-            opt.value === cleanCourse || opt.value.toLowerCase().includes(cleanCourse.toLowerCase()) || cleanCourse.toLowerCase().includes(opt.value.toLowerCase())
+            opt.value === displayCourse || opt.value.toLowerCase().includes(displayCourse.toLowerCase()) || displayCourse.toLowerCase().includes(opt.value.toLowerCase())
           );
           if (match) {
             courseSelect.value = match.value;
           } else {
             courseSelect.selectedIndex = 0;
           }
-        } else {
-          courseSelect.selectedIndex = 0;
         }
       }
       modalWrap.classList.add('open');
@@ -380,7 +382,7 @@ function initModal() {
           const prefilled = encodeURIComponent(
             `Hi Peakoo Academy! My name is ${name}. I want to confirm my seat for the ${course || 'Live Masterclass (₹99)'}${slotText}. My email is ${email}.`
           );
-          whatsAppBtn.href = `https://wa.me/919999999999?text=${prefilled}`;
+          whatsAppBtn.href = `https://wa.me/916305579955?text=${prefilled}`;
         }
       }
     });
@@ -569,4 +571,32 @@ function initVideoModal() {
       }
     });
   });
+}
+
+/**
+ * 10. Interactive Pathway Diagram Cue for Mobile
+ */
+function initPathwayCue() {
+  const cue = document.querySelector('.pathway-scroll-cue');
+  const stage = document.querySelector('.why-cohort-diagram-stage');
+  if (!cue || !stage) return;
+
+  cue.addEventListener('click', () => {
+    const maxScroll = stage.scrollWidth - stage.clientWidth;
+    if (stage.scrollLeft < maxScroll / 2) {
+      stage.scrollTo({ left: maxScroll, behavior: 'smooth' });
+    } else {
+      stage.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+  });
+
+  stage.addEventListener('scroll', () => {
+    const maxScroll = stage.scrollWidth - stage.clientWidth;
+    const span = cue.querySelector('span') || cue;
+    if (stage.scrollLeft > maxScroll * 0.5) {
+      span.innerHTML = '&larr; Scroll to Learn the Skill';
+    } else {
+      span.innerHTML = 'Swipe to view full pathway &rarr;';
+    }
+  }, { passive: true });
 }

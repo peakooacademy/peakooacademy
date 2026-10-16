@@ -622,7 +622,7 @@ a {
    ========================================================================== */
 .hero-wrapper {
   padding-top: 175px;
-  padding-bottom: 95px;
+  padding-bottom: 60px;
   min-height: 92vh;
   display: flex;
   align-items: center;
@@ -959,7 +959,8 @@ a {
   gap: 12px;
   font-size: 14px;
   color: var(--text-muted);
-  margin-bottom: 50px;
+  margin-top: 18px;
+  margin-bottom: 24px;
 }
 
 .hero-social-proof .stars {
@@ -2101,7 +2102,8 @@ a {
    ========================================================================== */
 .how-it-works-section {
   position: relative;
-  padding: 60px 0 50px;
+  padding: 65px 0 55px;
+  scroll-margin-top: 85px;
 }
 
 .how-it-works-grid {
@@ -3122,7 +3124,7 @@ a {
 
   .hero-wrapper {
     padding-top: 125px;
-    padding-bottom: 55px;
+    padding-bottom: 35px;
     min-height: auto;
   }
 
@@ -3323,7 +3325,8 @@ a {
     gap: 4px;
     text-align: center;
     font-size: 13px;
-    margin-bottom: 30px;
+    margin-top: 14px;
+    margin-bottom: 16px;
   }
 
   .tools-marquee-section::before,
@@ -3954,13 +3957,14 @@ a {
    ========================================================================== */
 .why-cohort-section {
   position: relative;
-  padding: 90px 24px 105px;
+  padding: 70px 24px 75px;
   background: #080808;
   overflow: hidden;
   border-top: 1px solid var(--border-subtle);
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
   justify-content: center;
+  scroll-margin-top: 85px;
 }
 
 .why-cohort-grid-bg {
@@ -3980,21 +3984,24 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
 .why-cohort-watermark {
   font-family: var(--font-display), 'Archivo', sans-serif;
-  font-size: clamp(2.6rem, 5.8vw, 4.8rem);
+  font-size: clamp(2.4rem, 5.5vw, 4.8rem);
   font-weight: 900;
-  color: #242424;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0.12) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  margin: 0 0 10px;
-  line-height: 1;
+  margin: 0 0 16px;
+  line-height: 1.1;
   text-align: center;
-  white-space: nowrap;
   user-select: none;
   pointer-events: none;
+  text-shadow: 0 0 30px rgba(255, 106, 0, 0.05);
 }
 
 .why-cohort-diagram-stage {
@@ -4100,36 +4107,162 @@ a {
   fill: #F1F5F9;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* Responsive adjustments for Why This Cohort & How It Works Flow */
+@media (min-width: 601px) and (max-width: 900px) {
   .why-cohort-section {
-    padding: 55px 14px 65px;
+    padding: 55px 20px 60px;
+    scroll-margin-top: 80px;
   }
 
   .why-cohort-watermark {
-    font-size: clamp(1.8rem, 7vw, 2.8rem);
-    white-space: normal;
-    word-break: break-word;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    margin-bottom: 20px;
   }
 
   .why-cohort-diagram-stage {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 14px;
-    scrollbar-width: thin;
+    overflow: visible;
   }
 
   .why-cohort-svg {
-    min-width: 620px;
-    margin: 0;
-    display: block;
+    width: 100%;
+    max-width: 850px;
+    min-width: 0;
+    height: auto;
   }
 
   .pathway-scroll-cue {
-    display: inline-flex;
+    display: none !important;
+  }
+
+  .how-it-works-section {
+    padding: 55px 0 50px;
+  }
+}
+
+@media (max-width: 600px) {
+  .why-cohort-section {
+    padding: 40px 10px 45px;
+    scroll-margin-top: 75px;
+    overflow: hidden;
+  }
+
+  .why-cohort-watermark {
+    font-size: clamp(1.65rem, 6.8vw, 2.3rem);
+    white-space: normal;
+    word-break: break-word;
+    margin-bottom: 14px;
+    padding: 0 4px;
+    line-height: 1.15;
+  }
+
+  .why-cohort-diagram-stage {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 6px;
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
+    padding: 0;
+    margin: 0 auto;
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+  }
+
+  .why-cohort-svg {
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+    overflow: visible;
+  }
+
+  .cohort-path-line {
+    stroke-width: 1.8;
+  }
+
+  .cyan-entrance-bracket {
+    stroke-width: 3.5;
+  }
+
+  .traveler-trail {
+    stroke-width: 3.2;
+  }
+
+  .cohort-svg-node-prefix {
+    font-size: 24px;
+  }
+
+  .cohort-svg-node-serif {
+    font-size: 38px;
+  }
+
+  .cohort-svg-path-label {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .pathway-scroll-cue {
+    display: none !important;
+  }
+
+  .how-it-works-section {
+    padding: 45px 0 40px;
+    scroll-margin-top: 75px;
+  }
+
+  .how-it-works-grid {
+    margin-top: 24px;
+    gap: 16px;
+  }
+
+  .how-it-works-step {
+    padding: 22px 18px;
+  }
+
+  .how-step-title {
+    font-size: 17.5px;
+    margin-bottom: 8px;
+  }
+
+  .how-step-desc {
+    font-size: 13.5px;
+  }
+}
+
+@media (max-width: 360px) {
+  .why-cohort-section {
+    padding: 34px 6px 38px;
+  }
+
+  .why-cohort-watermark {
+    font-size: 1.45rem;
+    margin-bottom: 10px;
+  }
+
+  .cohort-svg-node-prefix {
+    font-size: 25px;
+  }
+
+  .cohort-svg-node-serif {
+    font-size: 40px;
+  }
+
+  .cohort-svg-path-label {
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .how-it-works-step {
+    padding: 18px 14px;
+  }
+
+  .how-step-title {
+    font-size: 16px;
   }
 }
