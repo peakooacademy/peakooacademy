@@ -247,8 +247,49 @@ function initFaqAccordion() {
   });
 }
 
+// ============================================================================
+// PEAKOO ACADEMY - PAYMENT CONFIGURATION (RAZORPAY)
+// ============================================================================
+// To activate live payments:
+// 1. Log in to your Razorpay Dashboard: https://dashboard.razorpay.com/app/keys
+// 2. Generate/Copy your Key ID (e.g. 'rzp_test_...' for testing or 'rzp_live_...' for live)
+// 3. Paste it below replacing 'rzp_test_PLACEHOLDER_KEY'
+// ============================================================================
+const PEAKOO_PAYMENT_CONFIG = {
+  keyId: 'rzp_live_Tpq0VqqWnN5qNE', // Live Razorpay Key ID
+  companyName: 'Peakoo Academy',
+  description: 'Cohort & Course Enrolment',
+  themeColor: '#FF5500',
+  currency: 'INR',
+  prices: {
+    'masterclass': 99,
+    'all 4 courses bundle': 4499,
+    'complete 4-course bundle': 4499,
+    'bundle': 4499,
+    'website development & deployment': 2499,
+    'website development': 2499,
+    'meta ads': 1499,
+    'graphic designing': 999,
+    'google business profile': 999
+  }
+};
+
+function getCourseAmount(courseStr = '') {
+  if (!courseStr) return 99;
+  const match = courseStr.match(/₹\s*([\d,]+)/);
+  if (match && match[1]) {
+    const val = parseInt(match[1].replace(/,/g, ''), 10);
+    if (!isNaN(val) && val > 0) return val;
+  }
+  const clean = courseStr.toLowerCase();
+  for (const [key, price] of Object.entries(PEAKOO_PAYMENT_CONFIG.prices)) {
+    if (clean.includes(key)) return price;
+  }
+  return 99;
+}
+
 /**
- * 7. Enrolment Modal
+ * 7. Enrolment Modal with Razorpay Checkout
  */
 function initModal() {
   const modalWrap = document.getElementById('enrolModal');
@@ -261,6 +302,21 @@ function initModal() {
 
   // Populate dynamic twice-a-month slots on load
   populateMasterclassSlots();
+
+  function updateSubmitBtn(courseValue) {
+    if (!enrolForm) return;
+    const submitBtn = enrolForm.querySelector('button[type="submit"] span');
+    if (submitBtn) {
+      const amt = getCourseAmount(courseValue);
+      submitBtn.textContent = `Submit & Pay ₹${amt.toLocaleString('en-IN')}`;
+    }
+  }
+
+  if (courseSelect) {
+    courseSelect.addEventListener('change', () => {
+      updateSubmitBtn(courseSelect.value);
+    });
+  }
 
   function openModal(course = '', tier = '') {
     if (modalWrap) {
@@ -279,6 +335,9 @@ function initModal() {
             courseSelect.selectedIndex = 0;
           }
         }
+        updateSubmitBtn(courseSelect.value);
+      } else {
+        updateSubmitBtn(course);
       }
       modalWrap.classList.add('open');
       document.body.style.overflow = 'hidden';
@@ -353,37 +412,131 @@ function initModal() {
       const email = document.getElementById('studentEmail').value.trim();
       const course = courseSelect ? courseSelect.value : 'Live Masterclass (₹99)';
       const slot = slotSelect ? slotSelect.value : '';
+      const amount = getCourseAmount(course);
 
-      const leadData = {
-        name,
-        phone,
-        email,
-        course,
-        slot,
-        timestamp: new Date().toISOString()
+      const submitBtn = enrolForm.querySelector('button[type="submit"]');
+      const submitBtnSpan = submitBtn ? submitBtn.querySelector('span') : null;
+      const originalBtnText = submitBtnSpan ? submitBtnSpan.textContent : `Submit & Pay ₹${amount}`;
+
+      function resetSubmitBtn() {
+        if (submitBtn) submitBtn.disabled = false;
+        if (submitBtnSpan) submitBtnSpan.textContent = originalBtnText;
+      }
+
+      function onPaymentSuccess(paymentId = 'pay_simulated_test') {
+        const leadData = {
+          name,
+          phone,
+          email,
+          course,
+          slot,
+          amount,
+          paymentId,
+          status: 'PAID',
+          timestamp: new Date().toISOString()
+        };
+
+        try {
+          const stored = JSON.parse(localStorage.getItem('peakoo_academy_leads') || '[]');
+          stored.push(leadData);
+          localStorage.setItem('peakoo_academy_leads', JSON.stringify(stored));
+        } catch (err) {
+          console.error('Storage error:', err);
+        }
+
+        trackConversion('Purchase', {
+          value: amount,
+          currency: 'INR',
+          transaction_id: paymentId,
+          course: course
+        });
+
+        enrolForm.style.display = 'none';
+        if (successBox) {
+          successBox.style.display = 'block';
+
+          const successTitle = successBox.querySelector('h3');
+          if (successTitle) {
+            successTitle.innerHTML = 'PAYMENT <span class="text-orange">SUCCESSFUL</span>!';
+          }
+
+          const successDesc = successBox.querySelector('p');
+          if (successDesc) {
+            successDesc.innerHTML = `
+              <strong>Enrolment &amp; Payment Confirmed!</strong><br>
+              <div style="margin: 14px auto 18px; padding: 12px 14px; background: rgba(255,255,255,0.04); border: 1px dashed rgba(255,255,255,0.18); border-radius: 8px; text-align: left; font-size: 13px; line-height: 1.6;">
+                <div style="margin-bottom: 4px;"><span style="color: var(--text-muted);">Course:</span> <strong style="color: #fff;">${course}</strong></div>
+                <div style="margin-bottom: 4px;"><span style="color: var(--text-muted);">Amount Paid:</span> <strong style="color: #25D366; font-size: 14px;">₹${amount.toLocaleString('en-IN')}</strong></div>
+                <div style="margin-bottom: 4px;"><span style="color: var(--text-muted);">Payment ID:</span> <code style="color: var(--color-orange); background: rgba(255,85,0,0.1); padding: 2px 6px; border-radius: 4px; font-size: 12px;">${paymentId}</code></div>
+                ${slot ? `<div><span style="color: var(--text-muted);">Cohort Slot:</span> <span style="color: #fff;">${slot}</span></div>` : ''}
+              </div>
+              A confirmation receipt has been sent to your email. Click below to connect directly with our admissions team on WhatsApp.
+            `;
+          }
+
+          const whatsAppBtn = document.getElementById('whatsAppHandoffBtn');
+          if (whatsAppBtn) {
+            const slotText = slot ? ` for the slot on ${slot}` : '';
+            const prefilled = encodeURIComponent(
+              `Hi Peakoo Academy! My name is ${name}. I have paid ₹${amount.toLocaleString('en-IN')} for ${course}${slotText} (Payment ID: ${paymentId}). My email is ${email}. Please confirm my seat and cohort access!`
+            );
+            whatsAppBtn.href = `https://wa.me/916305579955?text=${prefilled}`;
+            const btnSpan = whatsAppBtn.querySelector('span');
+            if (btnSpan) btnSpan.textContent = 'Confirm on WhatsApp';
+          }
+        }
+      }
+
+      // Direct Live Razorpay Checkout flow
+      if (typeof window.Razorpay === 'undefined') {
+        alert('Payment gateway is loading. Please check your internet connection or try again in a few seconds.');
+        resetSubmitBtn();
+        return;
+      }
+
+      if (submitBtn) submitBtn.disabled = true;
+      if (submitBtnSpan) submitBtnSpan.textContent = 'Opening Secure Checkout...';
+
+      const razorpayOptions = {
+        key: PEAKOO_PAYMENT_CONFIG.keyId,
+        amount: amount * 100, // paise
+        currency: PEAKOO_PAYMENT_CONFIG.currency,
+        name: PEAKOO_PAYMENT_CONFIG.companyName,
+        description: `${course} Enrolment`,
+        image: 'assets/cropped-peakoo-icon-white-512.webp',
+        prefill: {
+          name: name,
+          email: email,
+          contact: phone
+        },
+        notes: {
+          course: course,
+          slot: slot || 'N/A'
+        },
+        theme: {
+          color: PEAKOO_PAYMENT_CONFIG.themeColor
+        },
+        handler: function (response) {
+          onPaymentSuccess(response.razorpay_payment_id);
+        },
+        modal: {
+          ondismiss: function () {
+            resetSubmitBtn();
+          }
+        }
       };
 
       try {
-        const stored = JSON.parse(localStorage.getItem('peakoo_academy_leads') || '[]');
-        stored.push(leadData);
-        localStorage.setItem('peakoo_academy_leads', JSON.stringify(stored));
+        const rzp = new window.Razorpay(razorpayOptions);
+        rzp.on('payment.failed', function (errResponse) {
+          alert('Payment Failed: ' + (errResponse.error?.description || 'Transaction could not be completed. Please try again.'));
+          resetSubmitBtn();
+        });
+        rzp.open();
       } catch (err) {
-        console.error('Storage error:', err);
-      }
-
-      trackConversion('Lead', leadData);
-
-      enrolForm.style.display = 'none';
-      if (successBox) {
-        successBox.style.display = 'block';
-        const whatsAppBtn = document.getElementById('whatsAppHandoffBtn');
-        if (whatsAppBtn) {
-          const slotText = slot ? ` for the slot on ${slot}` : '';
-          const prefilled = encodeURIComponent(
-            `Hi Peakoo Academy! My name is ${name}. I want to confirm my seat for the ${course || 'Live Masterclass (₹99)'}${slotText}. My email is ${email}.`
-          );
-          whatsAppBtn.href = `https://wa.me/916305579955?text=${prefilled}`;
-        }
+        console.error('Razorpay open error:', err);
+        alert('Could not initiate Razorpay. Please verify your Razorpay Key ID in js/main.js');
+        resetSubmitBtn();
       }
     });
   }
