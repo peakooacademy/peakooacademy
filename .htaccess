@@ -1,0 +1,11 @@
+# Enable rewrite engine
+RewriteEngine On
+
+# If the request is not a directory
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# If the request without extension matches an existing .html file
+RewriteCond %{REQUEST_FILENAME}\.html -f
+
+# Rewrite the request to the .html file
+RewriteRule ^([^/]+)$ $1.html [L]
