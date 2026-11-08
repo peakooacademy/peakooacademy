@@ -4,6 +4,12 @@ RewriteEngine On
 # If the request is not a directory
 RewriteCond %{REQUEST_FILENAME} !-d
 
+# Specific creator alias for Ganesh / @iitbtalks
+RewriteRule ^iitbtalks/?$ creator-collaboration.html [L]
+
+# Redirect legacy portfolio.html to creator-collaboration.html
+RewriteRule ^portfolio\.html$ creator-collaboration.html [R=301,L]
+
 # If the request without extension matches an existing .html file
 RewriteCond %{REQUEST_FILENAME}\.html -f
 

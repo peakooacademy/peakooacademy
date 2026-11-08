@@ -326,7 +326,7 @@ function initModal() {
         if (courseSelect.tagName === 'INPUT') {
           courseSelect.value = displayCourse;
         } else if (courseSelect.tagName === 'SELECT') {
-          const match = Array.from(courseSelect.options).find(opt => 
+          const match = Array.from(courseSelect.options).find(opt =>
             opt.value === displayCourse || opt.value.toLowerCase().includes(displayCourse.toLowerCase()) || displayCourse.toLowerCase().includes(opt.value.toLowerCase())
           );
           if (match) {
@@ -558,7 +558,7 @@ function populateMasterclassSlots() {
   for (let m = 0; m < 4; m++) {
     const targetMonth = (currMonth + m) % 12;
     const targetYear = currYear + Math.floor((currMonth + m) / 12);
-    
+
     const midDate = new Date(targetYear, targetMonth, 15, 19, 0, 0);
     const lastDay = new Date(targetYear, targetMonth + 1, 0).getDate();
     const endDate = new Date(targetYear, targetMonth, Math.min(30, lastDay), 19, 0, 0);
@@ -682,7 +682,7 @@ function initVideoModal() {
       document.body.style.overflow = 'hidden';
       if (video) {
         video.currentTime = 0;
-        video.play().catch(() => {});
+        video.play().catch(() => { });
       }
     }
   }
@@ -720,7 +720,7 @@ function initVideoModal() {
       const time = parseFloat(btn.getAttribute('data-time') || 0);
       if (video) {
         video.currentTime = time;
-        video.play().catch(() => {});
+        video.play().catch(() => { });
       }
     });
   });
