@@ -1,17 +1,35 @@
-# Enable rewrite engine
+# ----------------------------------------------------------------------
+# Peakoo Academy — Hostinger Apache Clean URLs & Rewrite Configuration
+# ----------------------------------------------------------------------
+
+# Prevent directory listings
+Options -Indexes
+
+# Ensure SymLinks are followed for mod_rewrite on Hostinger
+Options +FollowSymLinks
+
+# Enable Rewrite Engine
 RewriteEngine On
+RewriteBase /
 
-# If the request is not a directory
-RewriteCond %{REQUEST_FILENAME} !-d
+# 1. Redirect /index.html (or /index) to root domain /
+RewriteCond %{THE_REQUEST} \s/+index(?:\.html)?[\s?] [NC]
+RewriteRule ^ / [R=301,L]
 
-# Specific creator alias for Ganesh / @iitbtalks
+# 2. Redirect legacy /portfolio or /portfolio.html to /creator-collaboration
+RewriteCond %{THE_REQUEST} \s/+portfolio(?:\.html)?[\s?] [NC]
+RewriteRule ^ /creator-collaboration [R=301,L]
+
+# 3. External 301 Redirect: strip .html extension in browser address bar (e.g., /courses.html -> /courses)
+RewriteCond %{THE_REQUEST} \s/+([^\s?]+)\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# 4. Specific Creator Alias: /iitbtalks -> creator-collaboration.html
 RewriteRule ^iitbtalks/?$ creator-collaboration.html [L]
 
-# Redirect legacy portfolio.html to creator-collaboration.html
-RewriteRule ^portfolio\.html$ creator-collaboration.html [R=301,L]
-
-# If the request without extension matches an existing .html file
-RewriteCond %{REQUEST_FILENAME}\.html -f
-
-# Rewrite the request to the .html file
-RewriteRule ^([^/]+)$ $1.html [L]
+# 5. Internal Rewrite: serve existing .html file transparently when requested without extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f [OR]
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([^/]+)/?$ $1.html [L]

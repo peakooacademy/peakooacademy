@@ -72,7 +72,7 @@
       <div class="nav-actions-group">
         <a href="#reserve" class="btn-nav-join" data-guidance-trigger
           data-plan="Live IIT Mentorship Masterclass (₹249)">
-          <span>Register Now • ₹249</span>
+          <span>Book My Slot</span>
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
@@ -1006,7 +1006,8 @@
       </div>
 
       <!-- Reservation Form with Symmetrical 2-Column Grid Alignment -->
-      <form id="guidanceEnrolForm" class="guidance-form-aligned">
+      <form id="guidanceEnrolForm" class="guidance-form-aligned" action="https://pages.razorpay.com/iitbtalks"
+        method="GET">
         <!-- Hidden input for selected plan: strictly ₹249 Masterclass -->
         <input type="hidden" id="guidancePlanSelection" value="Live IIT Mentorship Masterclass (₹249)">
 
@@ -1054,12 +1055,7 @@
           </svg>
         </button>
 
-        <div class="guidance-form-security-note">
-          🔒 256-Bit Encrypted Razorpay Checkout • Instant Google Meet Link sent to WhatsApp &amp; Email.<br>
-          Need instant help? <a
-            href="https://wa.me/916305579955?text=Hi%20Ganesh!%20I%20need%20help%20reserving%20my%20Masterclass%20seat"
-            target="_blank" rel="noopener">Book directly via WhatsApp</a>.
-        </div>
+
       </form>
 
       <!-- Success Screen -->
@@ -1083,9 +1079,13 @@
         </div>
 
         <a id="guidanceWhatsAppBtn" href="#" target="_blank" rel="noopener" class="btn-hero-secondary"
-          style="width: 100%; justify-content: center; background: #25D366; border-color: #25D366;">
+          style="width: 100%; justify-content: center; background: #25D366; border-color: #25D366; margin-bottom: 10px;">
           <span>Confirm Details on WhatsApp</span>
         </a>
+        <button type="button" class="btn-hero-secondary guidance-modal-close" id="guidanceCloseSuccessBtn"
+          style="width: 100%; justify-content: center; background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); font-size: 13px;">
+          Back to Website
+        </button>
       </div>
 
     </div>
@@ -1172,6 +1172,183 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/SplitText.min.js"></script>
   <script src="js/main.js?v=2.1"></script>
   <script src="js/portfolio.js?v=5.0"></script>
+
+  <!-- Razorpay Payment Page Handoff & Return Confirmation Popup -->
+  <script>
+    (function () {
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      var form = document.getElementById('guidanceEnrolForm');
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+
+          var name = (document.getElementById('guidanceStudentName') || {}).value || '';
+          var phone = (document.getElementById('guidanceStudentPhone') || {}).value || '';
+          var email = (document.getElementById('guidanceStudentEmail') || {}).value || '';
+          var college = (document.getElementById('guidanceStudentCollege') || {}).value || '';
+          var slot = (document.getElementById('guidanceSlotSelection') || {}).value || '';
+
+          var lead = {
+            name: name.trim(),
+            phone: phone.trim(),
+            email: email.trim(),
+            college: college.trim(),
+            slot: slot.trim(),
+            plan: 'Live IIT Mentorship Masterclass (₹249)',
+            amount: 249,
+            timestamp: new Date().toISOString()
+          };
+
+          try {
+            var list = JSON.parse(localStorage.getItem('iitb_guidance_reservations') || '[]');
+            list.push(lead);
+            localStorage.setItem('iitb_guidance_reservations', JSON.stringify(list));
+            sessionStorage.setItem('peakoo_awaiting_payment', 'true');
+            sessionStorage.setItem('peakoo_last_lead', JSON.stringify(lead));
+          } catch (err) { }
+
+          var submitBtn = form.querySelector('button[type="submit"]');
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            var span = submitBtn.querySelector('span');
+            if (span) span.textContent = 'Opening Razorpay...';
+          }
+
+          window.location.href = 'https://pages.razorpay.com/iitbtalks';
+        }, true);
+      }
+
+      function showPaymentSuccessPopup(leadData, paymentId) {
+        var modalWrap = document.getElementById('guidanceModal');
+        if (!modalWrap) return;
+
+        var header = modalWrap.querySelector('.guidance-modal-header');
+        var selectedCard = modalWrap.querySelector('.masterclass-selected-card');
+        var formEl = document.getElementById('guidanceEnrolForm');
+        var successBox = document.getElementById('guidanceSuccessMessage');
+
+        if (header) header.style.display = 'none';
+        if (selectedCard) selectedCard.style.display = 'none';
+        if (formEl) formEl.style.display = 'none';
+
+        if (successBox) {
+          successBox.style.display = 'block';
+
+          var name = (leadData && leadData.name) ? leadData.name : 'Aspirant';
+          var phone = (leadData && leadData.phone) ? leadData.phone : 'Your WhatsApp Number';
+          var email = (leadData && leadData.email) ? leadData.email : '';
+          var college = (leadData && leadData.college) ? leadData.college : '';
+          var slot = (leadData && leadData.slot) ? leadData.slot : 'Upcoming Weekend • 7:00 PM IST';
+          var payId = paymentId || (leadData && leadData.paymentId) || ('pay_' + Math.random().toString(36).substring(2, 10));
+
+          var receiptContainer = successBox.querySelector('.guidance-receipt-card');
+          if (receiptContainer) {
+            receiptContainer.innerHTML = [
+              '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:8px;">',
+              '<span style="color:var(--text-muted); font-size:12px;">Payment Status</span>',
+              '<span style="background:rgba(37,211,102,0.18); border:1px solid rgba(37,211,102,0.4); color:#25D366; font-size:11px; font-weight:800; padding:2px 8px; border-radius:999px;">✓ COMPLETED (₹249)</span>',
+              '</div>',
+              '<div style="margin-bottom:6px;"><span style="color:var(--text-muted);">Session:</span> <strong style="color:#fff;">Live IIT Mentorship Masterclass</strong></div>',
+              '<div style="margin-bottom:6px;"><span style="color:var(--text-muted);">Mentor:</span> <strong style="color:var(--color-orange);">Ganesh Korra (IIT Bombay)</strong></div>',
+              '<div style="margin-bottom:6px;"><span style="color:var(--text-muted);">Amount Paid:</span> <strong style="color:#25D366; font-size:15px;">₹249</strong></div>',
+              '<div style="margin-bottom:6px;"><span style="color:var(--text-muted);">Student Name:</span> <strong style="color:#fff;">' + escapeHtml(name) + '</strong></div>',
+              '<div style="margin-bottom:6px;"><span style="color:var(--text-muted);">WhatsApp:</span> <strong style="color:#fff;">' + escapeHtml(phone) + '</strong></div>',
+              '<div style="margin-bottom:6px;"><span style="color:var(--text-muted);">Confirmed Slot:</span> <strong style="color:#fff;">' + escapeHtml(slot) + '</strong></div>',
+              '<div style="font-size:11px; color:var(--text-dim); margin-top:8px;">Payment Reference: ' + escapeHtml(payId) + '</div>'
+            ].join('');
+          }
+
+          var waBtn = successBox.querySelector('#guidanceWhatsAppBtn');
+          if (waBtn) {
+            var prefilled = encodeURIComponent(
+              'Hi Ganesh! My name is ' + name + (college ? ' (' + college + ')' : '') + '. I have completed my payment of ₹249 for the Live IIT Mentorship Masterclass (' + slot + '). Payment Ref: ' + payId + '. Please share my Google Meet onboarding link!'
+            );
+            waBtn.href = 'https://wa.me/916305579955?text=' + prefilled;
+          }
+        }
+
+        modalWrap.classList.add('open');
+        modalWrap.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+
+      function resetModalState() {
+        var modalWrap = document.getElementById('guidanceModal');
+        if (!modalWrap) return;
+        var header = modalWrap.querySelector('.guidance-modal-header');
+        var selectedCard = modalWrap.querySelector('.masterclass-selected-card');
+        var formEl = document.getElementById('guidanceEnrolForm');
+        var successBox = document.getElementById('guidanceSuccessMessage');
+        if (header) header.style.display = '';
+        if (selectedCard) selectedCard.style.display = '';
+        if (formEl) formEl.style.display = 'block';
+        if (successBox) successBox.style.display = 'none';
+      }
+
+      // Reset when closing
+      var closeBtns = document.querySelectorAll('.guidance-modal-close, #guidanceCloseSuccessBtn');
+      closeBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          setTimeout(resetModalState, 350);
+        });
+      });
+
+      // Check on return
+      function checkReturn() {
+        var params = new URLSearchParams(window.location.search);
+        var paymentId = params.get('payment_id') || params.get('razorpay_payment_id') || '';
+        var status = (params.get('status') || params.get('payment') || params.get('payment_status') || '').toLowerCase();
+        var hasUrlParam = Boolean(paymentId) || status === 'success' || params.get('booked') === 'true';
+        var hasSessionFlag = false;
+
+        try {
+          hasSessionFlag = sessionStorage.getItem('peakoo_awaiting_payment') === 'true';
+        } catch (e) { }
+
+        if (hasUrlParam || hasSessionFlag) {
+          try {
+            sessionStorage.removeItem('peakoo_awaiting_payment');
+          } catch (e) { }
+
+          var leadData = null;
+          try {
+            leadData = JSON.parse(sessionStorage.getItem('peakoo_last_lead') || 'null');
+            if (!leadData) {
+              var all = JSON.parse(localStorage.getItem('iitb_guidance_reservations') || '[]');
+              leadData = all[all.length - 1] || null;
+            }
+          } catch (e) { }
+
+          if (hasUrlParam && window.history && window.history.replaceState) {
+            var cleanUrl = window.location.pathname + window.location.hash;
+            window.history.replaceState({}, document.title, cleanUrl);
+          }
+
+          setTimeout(function () {
+            showPaymentSuccessPopup(leadData, paymentId);
+          }, 350);
+        }
+      }
+
+      window.addEventListener('load', checkReturn);
+      window.addEventListener('pageshow', function () { checkReturn(); });
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'visible') {
+          checkReturn();
+        }
+      });
+    })();
+  </script>
 </body>
 
 </html>
