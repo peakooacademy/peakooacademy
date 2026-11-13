@@ -1364,7 +1364,7 @@
         </div>
 
         <button type="submit" class="btn-pricing-cta btn-pricing-primary guidance-submit-btn">
-          <span>Book Now </span>
+          <span>Book Now</span>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path d="M5 12h14M12 5l7 7-7 7" />
           </svg>
@@ -1530,6 +1530,17 @@
 
       var form = document.getElementById('guidanceEnrolForm');
       if (form) {
+        var submitBtn = form.querySelector('button[type="submit"]');
+        var submitBtnSpan = submitBtn ? submitBtn.querySelector('span') : null;
+        if (submitBtnSpan && window.MutationObserver) {
+          var btnObserver = new MutationObserver(function () {
+            if (submitBtnSpan.textContent !== 'Book Now' && submitBtnSpan.textContent !== 'Opening Razorpay...') {
+              submitBtnSpan.textContent = 'Book Now';
+            }
+          });
+          btnObserver.observe(submitBtnSpan, { childList: true, characterData: true, subtree: true });
+        }
+
         form.addEventListener('submit', function (e) {
           e.preventDefault();
           e.stopImmediatePropagation();
@@ -1632,6 +1643,12 @@
         if (selectedCard) selectedCard.style.display = '';
         if (formEl) formEl.style.display = 'block';
         if (successBox) successBox.style.display = 'none';
+        var submitBtn = formEl ? formEl.querySelector('button[type="submit"]') : null;
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          var span = submitBtn.querySelector('span');
+          if (span) span.textContent = 'Book Now';
+        }
       }
 
       // Reset when closing
