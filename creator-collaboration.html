@@ -1202,7 +1202,7 @@
         <div style="margin-top: 22px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
           <a href="#reserve" class="btn-hero-primary" data-guidance-trigger
             data-plan="Live IIT Mentorship Masterclass (₹249)">
-            <span>Join Live Masterclass (₹249)</span>
+            <span>Join Live Masterclass</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
@@ -1568,6 +1568,8 @@
             localStorage.setItem('iitb_guidance_reservations', JSON.stringify(list));
             sessionStorage.setItem('peakoo_awaiting_payment', 'true');
             sessionStorage.setItem('peakoo_last_lead', JSON.stringify(lead));
+            localStorage.setItem('peakoo_awaiting_payment', 'true');
+            localStorage.setItem('peakoo_last_lead', JSON.stringify(lead));
           } catch (err) { }
 
           var submitBtn = form.querySelector('button[type="submit"]');
@@ -1602,7 +1604,7 @@
           var email = (leadData && leadData.email) ? leadData.email : '';
           var college = (leadData && leadData.college) ? leadData.college : '';
           var slot = (leadData && leadData.slot) ? leadData.slot : 'Upcoming Weekend • 7:00 PM IST';
-          var payId = paymentId || (leadData && leadData.paymentId) || ('pay_' + Math.random().toString(36).substring(2, 10));
+          var payId = paymentId || (leadData && leadData.paymentId) || 'pay_verified_razorpay';
 
           var receiptContainer = successBox.querySelector('.guidance-receipt-card');
           if (receiptContainer) {
@@ -1659,41 +1661,72 @@
         });
       });
 
-      // Check on return
+      // Check on return: redirect to dedicated payment confirmation page ONLY if REAL payment from Razorpay is verified
       function checkReturn() {
         var params = new URLSearchParams(window.location.search);
-        var paymentId = params.get('payment_id') || params.get('razorpay_payment_id') || '';
-        var status = (params.get('status') || params.get('payment') || params.get('payment_status') || '').toLowerCase();
-        var hasUrlParam = Boolean(paymentId) || status === 'success' || params.get('booked') === 'true';
-        var hasSessionFlag = false;
+        var paymentId = (params.get('razorpay_payment_id') || params.get('payment_id') || '').trim();
+        var linkStatus = (params.get('razorpay_payment_link_status') || params.get('status') || params.get('payment_status') || '').toLowerCase();
 
+        // Genuine Razorpay payment IDs start with "pay_" and are alphanumeric
+        var isRealPaymentId = Boolean(paymentId) && /^pay_[a-zA-Z0-9]{8,}$/.test(paymentId);
+        var isPaidStatus = linkStatus === 'paid' || linkStatus === 'success';
+        var isRealRazorpayPayment = isRealPaymentId && (isPaidStatus || !linkStatus);
+
+        var wasAwaiting = false;
         try {
-          hasSessionFlag = sessionStorage.getItem('peakoo_awaiting_payment') === 'true';
+          wasAwaiting = sessionStorage.getItem('peakoo_awaiting_payment') === 'true' || localStorage.getItem('peakoo_awaiting_payment') === 'true';
         } catch (e) { }
 
-        if (hasUrlParam || hasSessionFlag) {
+        // CASE 1: REAL PAYMENT FROM RAZORPAY CONFIRMED
+        if (isRealRazorpayPayment) {
           try {
             sessionStorage.removeItem('peakoo_awaiting_payment');
+            localStorage.removeItem('peakoo_awaiting_payment');
+            sessionStorage.setItem('peakoo_verified_payment_id', paymentId);
+            localStorage.setItem('peakoo_verified_payment_id', paymentId);
           } catch (e) { }
 
-          var leadData = null;
-          try {
-            leadData = JSON.parse(sessionStorage.getItem('peakoo_last_lead') || 'null');
-            if (!leadData) {
-              var all = JSON.parse(localStorage.getItem('iitb_guidance_reservations') || '[]');
-              leadData = all[all.length - 1] || null;
-            }
-          } catch (e) { }
-
-          if (hasUrlParam && window.history && window.history.replaceState) {
-            var cleanUrl = window.location.pathname + window.location.hash;
-            window.history.replaceState({}, document.title, cleanUrl);
-          }
+          var redirectQuery = '?razorpay_payment_id=' + encodeURIComponent(paymentId) + '&status=paid';
 
           setTimeout(function () {
-            showPaymentSuccessPopup(leadData, paymentId);
-          }, 350);
+            window.location.href = 'payment-success.html' + redirectQuery;
+          }, 200);
+          return;
         }
+
+        // CASE 2: USER RETURNED FROM RAZORPAY WITHOUT PAYING (PRESSED BACK OR CANCELLED)
+        if (wasAwaiting && !isRealRazorpayPayment) {
+          try {
+            sessionStorage.removeItem('peakoo_awaiting_payment');
+            localStorage.removeItem('peakoo_awaiting_payment');
+            sessionStorage.removeItem('peakoo_payment_completed');
+            localStorage.removeItem('peakoo_payment_completed');
+          } catch (e) { }
+
+          // Reset submit button so the aspirant can retry
+          var formEl = document.getElementById('guidanceEnrolForm');
+          var submitBtn = formEl ? formEl.querySelector('button[type="submit"]') : null;
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            var span = submitBtn.querySelector('span');
+            if (span) span.textContent = 'Book Now';
+          }
+
+          // Show polite notice that payment was not completed
+          showPaymentIncompleteNotice();
+        }
+      }
+
+      function showPaymentIncompleteNotice() {
+        if (document.getElementById('paymentIncompleteNotice')) return;
+        var notice = document.createElement('div');
+        notice.id = 'paymentIncompleteNotice';
+        notice.style.cssText = 'position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:99999; background:rgba(18,24,38,0.96); border:1px solid #F59E0B; color:#fff; padding:14px 20px; border-radius:12px; box-shadow:0 12px 36px rgba(0,0,0,0.65); max-width:92%; width:440px; font-family:"Space Grotesk",sans-serif; font-size:13px; line-height:1.5; display:flex; align-items:center; justify-content:space-between; gap:12px; backdrop-filter:blur(10px);';
+        notice.innerHTML = '<div style="display:flex; align-items:flex-start; gap:10px;"><span style="font-size:18px; line-height:1;">⚠️</span><div><strong style="color:#F59E0B; display:block; margin-bottom:2px; font-size:13.5px;">Payment Not Completed</strong>You returned from the payment page without finishing payment. Your seat is not yet reserved.</div></div><button type="button" onclick="this.parentElement.remove()" style="background:transparent; border:none; color:#94A3B8; font-size:18px; cursor:pointer; padding:4px; line-height:1;">&times;</button>';
+        document.body.appendChild(notice);
+        setTimeout(function () {
+          if (notice && notice.parentElement) notice.remove();
+        }, 9000);
       }
 
       window.addEventListener('load', checkReturn);

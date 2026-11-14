@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting to Payment Confirmation...</title>
+  <script>
+    (function() {
+      var query = window.location.search || '';
+      var hash = window.location.hash || '';
+      window.location.replace('payment-success.html' + query + hash);
+    })();
+  </script>
+</head>
+<body style="background: #0B0F17; color: #fff; font-family: sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0;">
+  <p>Redirecting to confirmation page... <a href="payment-success.html" style="color: #FF5500;">Click here if not redirected</a>.</p>
+</body>
+</html>

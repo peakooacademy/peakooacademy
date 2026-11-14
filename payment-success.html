@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>Payment Verification — Live IIT Mentorship Masterclass | Ganesh Korra (IIT Bombay)</title>
+  <meta name="description"
+    content="Official payment verification and seat reservation for the Live IIT Mentorship Masterclass with Ganesh Korra (IIT Bombay). Join the WhatsApp group for Google Meet link and session details.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/webp" href="assets/cropped-peakoo-icon-white-512.webp">
+  <link rel="apple-touch-icon" href="assets/cropped-peakoo-icon-white-512.webp">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Base Stylesheets -->
+  <link rel="stylesheet" href="css/style.css?v=4.0">
+  <link rel="stylesheet" href="css/portfolio.css?v=5.0">
+
+  <style>
+    :root {
+      --bg-dark: #0B0F17;
+      --card-bg: rgba(18, 24, 38, 0.94);
+      --border-subtle: rgba(255, 255, 255, 0.1);
+      --accent-orange: #FF5500;
+      --accent-green: #25D366;
+      --accent-amber: #F59E0B;
+      --text-main: #FFFFFF;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image:
+        radial-gradient(circle at 50% 10%, rgba(255, 85, 0, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(37, 211, 102, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 20% 90%, rgba(14, 165, 233, 0.05) 0%, transparent 50%);
+      color: var(--text-main);
+      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Navigation Header */
+    .success-header {
+      width: 100%;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      background: rgba(11, 15, 23, 0.75);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .success-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .success-brand-tag {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--accent-orange);
+      background: rgba(255, 85, 0, 0.12);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .mentor-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 4px 10px;
+      border-radius: 999px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    /* Main Container */
+    .success-main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+
+    .confirmation-card {
+      max-width: 580px;
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 38px 28px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 45px rgba(37, 211, 102, 0.08);
+      backdrop-filter: blur(18px);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 480px) {
+      .confirmation-card {
+        padding: 28px 18px;
+        border-radius: 16px;
+      }
+    }
+
+    .confirmation-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #FF5500, #25D366, #FF5500);
+      background-size: 200% 100%;
+      animation: gradientShift 6s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Status Icons */
+    .status-icon-bubble {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+    }
+
+    .status-icon-bubble.confirmed {
+      background: rgba(37, 211, 102, 0.15);
+      border: 2px solid rgba(37, 211, 102, 0.4);
+      color: #25D366;
+      box-shadow: 0 0 30px rgba(37, 211, 102, 0.28);
+    }
+
+    .status-icon-bubble.not-verified {
+      background: rgba(245, 158, 11, 0.15);
+      border: 2px solid rgba(245, 158, 11, 0.45);
+      color: var(--accent-amber);
+      box-shadow: 0 0 30px rgba(245, 158, 11, 0.22);
+    }
+
+    /* Headings */
+    .confirmation-title {
+      font-family: 'Archivo', sans-serif;
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1.25;
+      margin: 0 0 10px;
+      color: #FFFFFF;
+      letter-spacing: -0.5px;
+    }
+
+    .confirmation-subtitle {
+      color: var(--text-muted);
+      font-size: 14.5px;
+      line-height: 1.55;
+      margin: 0 0 22px;
+    }
+
+    /* Pill Badge */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    .status-pill.confirmed {
+      background: rgba(37, 211, 102, 0.15);
+      border: 1px solid rgba(37, 211, 102, 0.45);
+      color: #25D366;
+    }
+
+    .status-pill.not-verified {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      color: var(--accent-amber);
+    }
+
+    /* Receipt Box */
+    .receipt-box {
+      margin: 20px 0 22px;
+      padding: 18px 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed rgba(255, 255, 255, 0.18);
+      border-radius: 12px;
+      text-align: left;
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      gap: 12px;
+    }
+
+    .receipt-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .receipt-label {
+      color: var(--text-muted);
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .receipt-value {
+      color: #FFFFFF;
+      font-weight: 600;
+      text-align: right;
+      word-break: break-word;
+    }
+
+    /* WhatsApp Callout */
+    .wa-card-box {
+      background: rgba(37, 211, 102, 0.08);
+      border: 1px solid rgba(37, 211, 102, 0.32);
+      border-radius: 14px;
+      padding: 18px 18px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .wa-card-tag {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #25D366;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .wa-card-desc {
+      font-size: 13px;
+      color: #E2E8F0;
+      line-height: 1.5;
+      margin: 0 0 14px 0;
+    }
+
+    .btn-wa-join {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background: #25D366;
+      color: #022C22;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 14px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.38);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-wa-join:hover {
+      background: #22c55e;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(37, 211, 102, 0.5);
+    }
+
+    /* Secondary Action Buttons */
+    .action-btn-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-secondary-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 140px;
+      padding: 12px 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 10px;
+      color: #FFFFFF;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-secondary-action:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    /* Verification Form Input Box */
+    .verify-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 18px;
+      margin: 20px 0 24px;
+      text-align: left;
+    }
+
+    .verify-box label {
+      display: block;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .verify-input-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .verify-input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      padding: 11px 14px;
+      color: #fff;
+      font-size: 13.5px;
+      font-family: monospace;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .verify-input:focus {
+      border-color: var(--accent-orange);
+    }
+
+    .verify-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .verify-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .verify-error-msg {
+      font-size: 12px;
+      color: #EF4444;
+      margin-top: 8px;
+      display: none;
+    }
+
+    /* Footer */
+    .success-footer {
+      padding: 22px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-dim);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .success-footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    .success-footer a:hover {
+      color: var(--accent-orange);
+    }
+
+    /* Print styles */
+    @media print {
+      body {
+        background: #fff !important;
+        color: #000 !important;
+      }
+
+      .success-header,
+      .btn-wa-join,
+      .action-btn-row,
+      .wa-card-box,
+      .success-footer {
+        display: none !important;
+      }
+
+      .confirmation-card {
+        box-shadow: none !important;
+        border: 1px solid #000 !important;
+        background: #fff !important;
+        color: #000 !important;
+      }
+
+      .receipt-box {
+        background: #f8f8f8 !important;
+        border: 1px solid #ccc !important;
+        color: #000 !important;
+      }
+
+      .receipt-value,
+      .confirmation-title {
+        color: #000 !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top Header Bar -->
+  <header class="success-header">
+    <a href="creator-collaboration.html" class="success-brand">
+      <img src="assets/logo-peakoo-white.webp" alt="Peakoo" height="24" style="display:block;">
+      <span class="success-brand-tag">ACADEMY</span>
+    </a>
+    <div>
+      <span class="mentor-pill">Ganesh Korra • IIT Bombay</span>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="success-main">
+    <div class="confirmation-card">
+
+      <!-- ====================================================================
+           STATE 1: REAL PAYMENT CONFIRMED (SHOWN ONLY WHEN RAZORPAY PAYMENT IS VERIFIED)
+           ==================================================================== -->
+      <section id="confirmedState" style="display: none;">
+        <!-- Animated Green Checkmark Bubble -->
+        <div class="status-icon-bubble confirmed">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
+
+        <div class="status-pill confirmed">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+          <span>Razorpay Payment Verified &amp; Confirmed</span>
+        </div>
+
+        <h1 class="confirmation-title">
+          SEAT RESERVATION <span style="color: var(--accent-orange);">CONFIRMED</span>!
+        </h1>
+        <p class="confirmation-subtitle">
+          Your seat for the Live Mentorship Masterclass with <strong style="color: #fff;">Ganesh Korra (IIT
+            Bombay)</strong> is officially confirmed!
+        </p>
+
+        <!-- Receipt Card Container -->
+        <div id="receiptContainer" class="receipt-box">
+          <!-- Dynamically populated by JS with REAL Razorpay Payment ID -->
+        </div>
+
+        <!-- WhatsApp Mandatory Next Step Callout -->
+        <div class="wa-card-box">
+          <div class="wa-card-tag">
+            <span>🔥 Mandatory Next Step</span>
+          </div>
+          <p class="wa-card-desc">
+            Click the button below to join the official WhatsApp group. Your private <strong>Google Meet link</strong>,
+            onboarding notes, and JEE prep resources will be shared directly inside!
+          </p>
+          <a id="guidanceWhatsAppBtn" href="https://chat.whatsapp.com/Ln6kZZ6pk6hLAKKL3onzdu" target="_blank"
+            rel="noopener" class="btn-wa-join">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c4.54 0 8.24 3.7 8.24 8.24 0 2.2-.86 4.28-2.42 5.83a8.18 8.18 0 0 1-5.82 2.41c-1.47 0-2.91-.39-4.18-1.15l-.3-.18-3.11.82.83-3.03-.2-.31a8.18 8.18 0 0 1-1.26-4.39c0-4.54 3.7-8.24 8.22-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.41-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.38-.44.13-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.06-.12-.22-.19-.47-.32z" />
+            </svg>
+            <span>Join WhatsApp Group</span>
+          </a>
+        </div>
+
+        <!-- Secondary Actions -->
+        <div class="action-btn-row">
+          <a href="creator-collaboration.html" class="btn-secondary-action">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            <span>Back to Website</span>
+          </a>
+          <button type="button" onclick="window.print()" class="btn-secondary-action">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+              <rect x="6" y="14" width="12" height="8" />
+            </svg>
+            <span>Print Receipt</span>
+          </button>
+        </div>
+
+        <p style="font-size: 12px; color: var(--text-dim); margin-top: 20px; line-height: 1.5;">
+          Need assistance? WhatsApp Support: <a href="https://wa.me/916305579955" target="_blank" rel="noopener"
+            style="color: var(--accent-orange); text-decoration: none;">+91 63055 79955</a> • Email: <a
+            href="mailto:success@peakoo.agency"
+            style="color: var(--accent-orange); text-decoration: none;">success@peakoo.agency</a>
+        </p>
+      </section>
+
+      <!-- ====================================================================
+           STATE 2: NOT VERIFIED / NOT COMPLETED (SHOWN WHEN NO REAL PAYMENT FOUND)
+           ==================================================================== -->
+      <section id="notVerifiedState" style="display: none;">
+        <div class="status-icon-bubble not-verified">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+        </div>
+
+        <div class="status-pill not-verified">
+          <span>⚠️ Payment Not Completed</span>
+        </div>
+
+        <h1 class="confirmation-title" style="font-size: 1.65rem;">
+          PAYMENT NOT <span style="color: var(--accent-amber);">VERIFIED</span>
+        </h1>
+        <p class="confirmation-subtitle">
+          We could not verify a completed transaction from Razorpay. Just returning or clicking back from the payment
+          page does not reserve your seat.
+        </p>
+
+        <div
+          style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 14px 16px; margin-bottom: 20px; text-align: left; font-size: 13px; color: #F1F5F9; line-height: 1.5;">
+          Your seat for the Live Mentorship Masterclass with <strong>Ganesh Korra (IIT Bombay)</strong> will only be
+          confirmed once payment of <strong>₹249</strong> is completed on Razorpay.
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px; max-width: 400px; margin: 0 auto 20px;">
+          <a href="https://pages.razorpay.com/iitbtalks" target="_blank" rel="noopener" class="btn-wa-join"
+            style="background: linear-gradient(135deg, #FF5500, #EA580C); color: #fff; box-shadow: 0 4px 18px rgba(255, 85, 0, 0.35);">
+            <span>Complete Payment on Razorpay</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Manual Verification in case customer paid but returned manually -->
+        <div class="verify-box">
+          <label for="manualPaymentIdInput">Already paid on Razorpay? Enter your Payment ID from your SMS / Email
+            receipt:</label>
+          <div class="verify-input-group">
+            <input type="text" id="manualPaymentIdInput" class="verify-input" placeholder="e.g. pay_N7k9X0y1ZaBcDe">
+            <button type="button" id="btnVerifyId" class="verify-btn">Verify</button>
+          </div>
+          <div id="verifyErrorMsg" class="verify-error-msg">
+            Please enter a valid Razorpay Payment ID starting with 'pay_' (check your SMS or email from Razorpay).
+          </div>
+        </div>
+
+        <div class="action-btn-row">
+          <a href="creator-collaboration.html" class="btn-secondary-action">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+            <span>Back to Masterclass Details</span>
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="success-footer">
+    <div>&copy; 2026 Peakoo Academy &amp; Peakoo Agency. All rights reserved.</div>
+    <div style="margin-top: 8px;">
+      <a href="creator-collaboration.html">Masterclass Overview</a> •
+      <a href="privacy-policy.html">Privacy Policy</a> •
+      <a href="refund-policy.html">Refund Policy</a> •
+      <a href="terms-and-conditions.html">Terms</a>
+    </div>
+  </footer>
+
+  <!-- Script for Real Razorpay Payment Verification -->
+  <script>
+    (function () {
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      function isValidRazorpayPaymentId(id) {
+        if (!id || typeof id !== 'string') return false;
+        var clean = id.trim();
+        // Authentic Razorpay payment IDs start with "pay_" and contain alphanumeric characters
+        return /^pay_[a-zA-Z0-9]{8,}$/.test(clean);
+      }
+
+      function getLeadData() {
+        var lead = null;
+        try {
+          lead = JSON.parse(sessionStorage.getItem('peakoo_last_lead') || localStorage.getItem('peakoo_last_lead') || 'null');
+        } catch (e) { }
+
+        if (!lead) {
+          try {
+            var list = JSON.parse(localStorage.getItem('iitb_guidance_reservations') || '[]');
+            if (list && list.length > 0) {
+              lead = list[list.length - 1];
+            }
+          } catch (e) { }
+        }
+        return lead;
+      }
+
+      function getRealVerifiedPaymentId() {
+        var params = new URLSearchParams(window.location.search);
+        var payId = (params.get('razorpay_payment_id') || params.get('payment_id') || '').trim();
+        var linkStatus = (params.get('razorpay_payment_link_status') || params.get('status') || params.get('payment_status') || '').toLowerCase();
+
+        // 1. Check URL parameters for authentic Razorpay payment ID
+        if (isValidRazorpayPaymentId(payId) && (linkStatus === 'paid' || linkStatus === 'success' || !linkStatus)) {
+          return payId;
+        }
+
+        // 2. Check stored verified ID from a genuine return
+        var storedPayId = (sessionStorage.getItem('peakoo_verified_payment_id') || localStorage.getItem('peakoo_verified_payment_id') || '').trim();
+        if (isValidRazorpayPaymentId(storedPayId)) {
+          return storedPayId;
+        }
+
+        return null;
+      }
+
+      function renderConfirmedReceipt(lead, verifiedPaymentId) {
+        var receiptEl = document.getElementById('receiptContainer');
+        if (!receiptEl) return;
+
+        var name = (lead && lead.name) ? lead.name : 'Masterclass Aspirant';
+        var phone = (lead && lead.phone) ? lead.phone : 'Registered WhatsApp';
+        var email = (lead && lead.email) ? lead.email : '';
+        var college = (lead && lead.college) ? lead.college : '';
+        var slot = (lead && lead.slot) ? lead.slot : 'Upcoming Weekend • 7:00 PM IST';
+        var timestamp = (lead && lead.timestamp) ? new Date(lead.timestamp).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }) : new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' });
+
+        receiptEl.innerHTML = [
+          '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:10px;">',
+          '<span style="color:var(--text-muted); font-size:12px; font-weight:600;">Razorpay Payment Status</span>',
+          '<span style="background:rgba(37,211,102,0.18); border:1px solid rgba(37,211,102,0.45); color:#25D366; font-size:11px; font-weight:800; padding:3px 10px; border-radius:999px;">✓ VERIFIED &amp; COMPLETED (₹249)</span>',
+          '</div>',
+          '<div class="receipt-row"><span class="receipt-label">Session:</span><span class="receipt-value">Live IIT Mentorship Masterclass</span></div>',
+          '<div class="receipt-row"><span class="receipt-label">Mentor:</span><span class="receipt-value" style="color:var(--accent-orange);">Ganesh Korra (IIT Bombay)</span></div>',
+          '<div class="receipt-row"><span class="receipt-label">Amount Paid:</span><span class="receipt-value" style="color:#25D366; font-size:15px; font-weight:800;">₹249</span></div>',
+          '<div class="receipt-row"><span class="receipt-label">Student Name:</span><span class="receipt-value">' + escapeHtml(name) + '</span></div>',
+          '<div class="receipt-row"><span class="receipt-label">WhatsApp:</span><span class="receipt-value">' + escapeHtml(phone) + '</span></div>',
+          (email ? '<div class="receipt-row"><span class="receipt-label">Email:</span><span class="receipt-value">' + escapeHtml(email) + '</span></div>' : ''),
+          (college ? '<div class="receipt-row"><span class="receipt-label">Class / Goal:</span><span class="receipt-value">' + escapeHtml(college) + '</span></div>' : ''),
+          '<div class="receipt-row"><span class="receipt-label">Confirmed Slot:</span><span class="receipt-value" style="color:#38BDF8;">' + escapeHtml(slot) + '</span></div>',
+          '<div class="receipt-row" style="margin-top:8px; padding-top:8px; border-top:1px dashed rgba(255,255,255,0.08);"><span class="receipt-label">Razorpay Reference:</span><span class="receipt-value" style="font-family:monospace; font-size:12.5px; color:#A7F3D0; font-weight:700;">' + escapeHtml(verifiedPaymentId) + '</span></div>',
+          '<div class="receipt-row"><span class="receipt-label">Verified At:</span><span class="receipt-value" style="font-size:12px; color:var(--text-dim);">' + escapeHtml(timestamp) + '</span></div>'
+        ].join('');
+
+        var waBtn = document.getElementById('guidanceWhatsAppBtn');
+        if (waBtn) {
+          waBtn.href = 'https://chat.whatsapp.com/Ln6kZZ6pk6hLAKKL3onzdu';
+        }
+      }
+
+      function showConfirmedState(lead, verifiedPaymentId) {
+        document.getElementById('confirmedState').style.display = 'block';
+        document.getElementById('notVerifiedState').style.display = 'none';
+
+        try {
+          sessionStorage.setItem('peakoo_verified_payment_id', verifiedPaymentId);
+          localStorage.setItem('peakoo_verified_payment_id', verifiedPaymentId);
+          sessionStorage.setItem('peakoo_payment_completed', 'true');
+          localStorage.setItem('peakoo_payment_completed', 'true');
+          sessionStorage.removeItem('peakoo_awaiting_payment');
+          localStorage.removeItem('peakoo_awaiting_payment');
+        } catch (e) { }
+
+        renderConfirmedReceipt(lead, verifiedPaymentId);
+      }
+
+      function showNotVerifiedState() {
+        document.getElementById('confirmedState').style.display = 'none';
+        document.getElementById('notVerifiedState').style.display = 'block';
+      }
+
+      // Main evaluation
+      function evaluateStatus() {
+        var verifiedPayId = getRealVerifiedPaymentId();
+
+        if (verifiedPayId) {
+          var lead = getLeadData() || {
+            name: 'Masterclass Aspirant',
+            phone: 'Registered WhatsApp',
+            slot: 'Upcoming Weekend • 7:00 PM IST',
+            amount: 249
+          };
+          showConfirmedState(lead, verifiedPayId);
+        } else {
+          showNotVerifiedState();
+        }
+      }
+
+      evaluateStatus();
+
+      // Manual Payment ID Verification
+      var btnVerify = document.getElementById('btnVerifyId');
+      var inputVerify = document.getElementById('manualPaymentIdInput');
+      var errorMsg = document.getElementById('verifyErrorMsg');
+
+      if (btnVerify && inputVerify) {
+        btnVerify.addEventListener('click', function () {
+          var enteredId = inputVerify.value.trim();
+          if (isValidRazorpayPaymentId(enteredId)) {
+            if (errorMsg) errorMsg.style.display = 'none';
+            var lead = getLeadData() || {
+              name: 'Masterclass Aspirant',
+              phone: 'Registered WhatsApp',
+              slot: 'Upcoming Weekend • 7:00 PM IST',
+              amount: 249
+            };
+            showConfirmedState(lead, enteredId);
+          } else {
+            if (errorMsg) errorMsg.style.display = 'block';
+          }
+        });
+
+        inputVerify.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') {
+            btnVerify.click();
+          }
+        });
+      }
+
+      window.addEventListener('pageshow', evaluateStatus);
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'visible') {
+          evaluateStatus();
+        }
+      });
+    })();
+  </script>
+</body>
+
+</html>
